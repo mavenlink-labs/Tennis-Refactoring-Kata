@@ -9,7 +9,7 @@ class TennisGame1
   end
 
   def won_point(playerName)
-    if playerName == 'player1'
+    if playerName == @player1Name
       @p1points += 1
     else
       @p2points += 1
@@ -18,7 +18,7 @@ class TennisGame1
 
   def score
     if @p1points == @p2points
-      result = {
+      return {
         0 => 'Love-All',
         1 => 'Fifteen-All',
         2 => 'Thirty-All'
@@ -34,7 +34,8 @@ class TennisGame1
                else
                  'Win for player2'
                end
-    else
+      return result
+    end
       map = {
         0 => 'Love',
         1 => 'Fifteen',
@@ -42,9 +43,7 @@ class TennisGame1
         3 => 'Forty'
       }
 
-      result = "#{map[@p1points]}-#{map[@p2points]}"
-    end
-    result
+     "#{map[@p1points]}-#{map[@p2points]}"
   end
 end
 

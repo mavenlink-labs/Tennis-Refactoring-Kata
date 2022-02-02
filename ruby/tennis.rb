@@ -6,10 +6,12 @@ class TennisGame1
     @player2Name = player2Name
     @p1points = 0
     @p2points = 0
+    @player1 = Player.new(player1Name)
+    @player2 = Player.new(player2Name)
   end
 
   def won_point(playerName)
-    if playerName == @player1Name
+    if playerName == @player1.name
       @p1points += 1
     else
       @p2points += 1
@@ -178,5 +180,14 @@ class TennisGame3
         (@p1 - @p2) * (@p1 - @p2) == 1 ? 'Advantage ' + s : 'Win for ' + s
       end
     end
+  end
+end
+
+class Player
+  attr_accessor :name, :score
+
+  def initialize(name)
+    @name = name
+    @score = 0
   end
 end

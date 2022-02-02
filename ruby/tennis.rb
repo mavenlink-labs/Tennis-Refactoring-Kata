@@ -17,22 +17,33 @@ class TennisGame1
   end
 
   def score
-    if @p1points == @p2points
-      return {
-        0 => 'Love-All',
-        1 => 'Fifteen-All',
-        2 => 'Thirty-All'
-      }.fetch(@p1points, 'Deuce')
-    elsif (@p1points >= 4) || (@p2points >= 4)
-      scoreDifference = @p1points - @p2points
-      return 'Advantage player1' if scoreDifference == 1
+    return tied_score_result if @p1points == @p2points
 
-      return 'Advantage player2' if scoreDifference == -1
+    return score_greater_than_4_result if (@p1points >= 4) || (@p2points >= 4)
 
-      return 'Win for player1' if scoreDifference >= 2
+    basic_score_result
+  end
 
-      return'Win for player2'
-    end
+  def tied_score_result
+    {
+      0 => 'Love-All',
+      1 => 'Fifteen-All',
+      2 => 'Thirty-All'
+    }.fetch(@p1points, 'Deuce')
+  end
+
+  def score_greater_than_4_result
+    score_difference = @p1points - @p2points
+    return 'Advantage player1' if score_difference == 1
+
+    return 'Advantage player2' if score_difference == -1
+
+    return 'Win for player1' if score_difference >= 2
+
+    'Win for player2'
+  end
+
+  def basic_score_result
     map = {
       0 => 'Love',
       1 => 'Fifteen',

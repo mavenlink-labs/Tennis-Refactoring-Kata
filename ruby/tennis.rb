@@ -2,26 +2,22 @@
 
 class TennisGame1
   def initialize(player1Name, player2Name)
-    @player1Name = player1Name
-    @player2Name = player2Name
-    @p1points = 0
-    @p2points = 0
     @player1 = Player.new(player1Name)
     @player2 = Player.new(player2Name)
   end
 
   def won_point(playerName)
-    if playerName == @player1.name
-      @p1points += 1
+    if @player1==playerName
+      @player1.award_point
     else
-      @p2points += 1
+      @player2.award_point
     end
   end
 
   def score
-    return tied_score_result if @p1points == @p2points
+    return tied_score_result if @player1.score == @player2.score
 
-    return score_greater_than_4_result if (@p1points >= 4) || (@p2points >= 4)
+    return score_greater_than_4_result if (@player1.score >= 4) || (@player2.score >= 4)
 
     basic_score_result
   end
@@ -31,11 +27,11 @@ class TennisGame1
       0 => 'Love-All',
       1 => 'Fifteen-All',
       2 => 'Thirty-All'
-    }.fetch(@p1points, 'Deuce')
+    }.fetch(@player1.score, 'Deuce')
   end
 
   def score_greater_than_4_result
-    score_difference = @p1points - @p2points
+    score_difference = @player1.score - @player2.score
     return 'Advantage player1' if score_difference == 1
 
     return 'Advantage player2' if score_difference == -1
@@ -53,7 +49,7 @@ class TennisGame1
       3 => 'Forty'
     }
 
-    "#{map[@p1points]}-#{map[@p2points]}"
+    "#{map[@player1.score]}-#{map[@player2.score]}"
   end
 end
 
@@ -189,5 +185,13 @@ class Player
   def initialize(name)
     @name = name
     @score = 0
+  end
+
+  def award_point
+    @score += 1
+  end
+
+  def ==(name)
+    @name == name
   end
 end

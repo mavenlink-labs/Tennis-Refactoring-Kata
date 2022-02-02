@@ -24,26 +24,23 @@ class TennisGame1
         2 => 'Thirty-All'
       }.fetch(@p1points, 'Deuce')
     elsif (@p1points >= 4) || (@p2points >= 4)
-      minusResult = @p1points - @p2points
-      result = if minusResult == 1
-                 'Advantage player1'
-               elsif minusResult == -1
-                 'Advantage player2'
-               elsif minusResult >= 2
-                 'Win for player1'
-               else
-                 'Win for player2'
-               end
-      return result
-    end
-      map = {
-        0 => 'Love',
-        1 => 'Fifteen',
-        2 => 'Thirty',
-        3 => 'Forty'
-      }
+      scoreDifference = @p1points - @p2points
+      return 'Advantage player1' if scoreDifference == 1
 
-     "#{map[@p1points]}-#{map[@p2points]}"
+      return 'Advantage player2' if scoreDifference == -1
+
+      return 'Win for player1' if scoreDifference >= 2
+
+      return'Win for player2'
+    end
+    map = {
+      0 => 'Love',
+      1 => 'Fifteen',
+      2 => 'Thirty',
+      3 => 'Forty'
+    }
+
+    "#{map[@p1points]}-#{map[@p2points]}"
   end
 end
 

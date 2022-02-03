@@ -3,3 +3,6 @@ Gemfile.lock
 # Eclipse
 .buildpath
 .loadpath
+
+# rbenv
+.ruby-version

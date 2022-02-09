@@ -60,6 +60,11 @@ class TestTennis < Minitest::Test
     game
   end
 
+  def test_player_name
+    game = play_game(TennisGame1, 4, 6, "Player1", "Asher")
+    assert_equal("Win for Asher", game.score)
+  end
+
   def test_Score_Game1
     TEST_CASES.each do |testcase|
       (p1Points, p2Points, score, p1Name, p2Name) = testcase

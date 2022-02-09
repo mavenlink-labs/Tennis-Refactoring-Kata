@@ -29,13 +29,13 @@ class TennisGame1
 
   def score_greater_than_4_result
     score_difference = @player1.score - @player2.score
-    return 'Advantage player1' if score_difference == 1
+    return "Advantage #{@player1.name}" if score_difference == 1
 
-    return 'Advantage player2' if score_difference == -1
+    return "Advantage #{@player2.name}" if score_difference == -1
 
-    return 'Win for player1' if score_difference >= 2
+    return "Win for #{@player1.name}" if score_difference >= 2
 
-    'Win for player2'
+    "Win for #{@player2.name}"
   end
 
   def basic_score_result

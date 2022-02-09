@@ -81,34 +81,28 @@ class TennisGame2
       return score_tied
     end
 
+    if (@player1.score >= 4) && (@player2.score >= 0) && ((@player1.score - @player2.score) >= 2)
+      return 'Win for ' + @player1.name
+    end
+    if (@player2.score >= 4) && (@player1.score >= 0) && ((@player2.score - @player1.score) >= 2)
+      return 'Win for ' + @player2.name
+    end
+
     p1res = ''
     p2res = ''
     if (@player1.score > 0) && (@player2.score == 0)
-      puts @player1.score.to_s + @player2.score.to_s
       return SCORE_MAP[@player1.score] + '-' + SCORE_MAP[@player2.score]
     end
-    if (@player2.score > 0) && (@player1.score == 0)
-      p2res = 'Fifteen' if @player2.score == 1
-      p2res = 'Thirty' if @player2.score == 2
-      p2res = 'Forty' if @player2.score == 3
 
-      p1res = 'Love'
-      result = p1res + '-' + p2res
+    if (@player2.score > 0) && (@player1.score == 0)
+      return SCORE_MAP[@player1.score] + '-' + SCORE_MAP[@player2.score]
     end
 
     if (@player1.score > @player2.score) && (@player1.score < 4)
-      p1res = 'Thirty' if @player1.score == 2
-      p1res = 'Forty' if @player1.score == 3
-      p2res = 'Fifteen' if @player2.score == 1
-      p2res = 'Thirty' if @player2.score == 2
-      result = p1res + '-' + p2res
+      return SCORE_MAP[@player1.score] + '-' + SCORE_MAP[@player2.score]
     end
     if (@player2.score > @player1.score) && (@player2.score < 4)
-      p2res = 'Thirty' if @player2.score == 2
-      p2res = 'Forty' if @player2.score == 3
-      p1res = 'Fifteen' if @player1.score == 1
-      p1res = 'Thirty' if @player1.score == 2
-      result = p1res + '-' + p2res
+      return SCORE_MAP[@player1.score] + '-' + SCORE_MAP[@player2.score]
     end
     if (@player1.score > @player2.score) && (@player2.score >= 3)
       result = 'Advantage ' + @player1.name
@@ -116,12 +110,7 @@ class TennisGame2
     if (@player2.score > @player1.score) && (@player1.score >= 3)
       result = 'Advantage ' + @player2.name
     end
-    if (@player1.score >= 4) && (@player2.score >= 0) && ((@player1.score - @player2.score) >= 2)
-      result = 'Win for ' + @player1.name
-    end
-    if (@player2.score >= 4) && (@player1.score >= 0) && ((@player2.score - @player1.score) >= 2)
-      result = 'Win for ' + @player2.name
-    end
+
     result
   end
 end

@@ -56,6 +56,13 @@ class TennisGame2
     @player2 = Player.new(player2Name)
   end
 
+  SCORE_MAP = {
+    0 => 'Love',
+    1 => 'Fifteen',
+    2 => 'Thirty',
+    3 => 'Forty'
+  }
+
   def won_point(player_name)
     victor = [@player1, @player2].detect { |p| p.name == player_name }
     victor.award_point
@@ -63,10 +70,7 @@ class TennisGame2
 
   def score_tied
     if(@player1.score < 3)
-      result = 'Love' if @player1.score == 0
-      result =  'Fifteen' if @player1.score == 1
-      result = 'Thirty' if @player1.score == 2
-      return result += '-All'
+      return SCORE_MAP[@player1.score] + '-All'
     end
     return 'Deuce'
   end
@@ -74,17 +78,14 @@ class TennisGame2
   def score
     result = ''
     if (@player1.score == @player2.score)
-      result = score_tied
+      return score_tied
     end
 
     p1res = ''
     p2res = ''
     if (@player1.score > 0) && (@player2.score == 0)
-      p1res = 'Fifteen' if @player1.score == 1
-      p1res = 'Thirty' if @player1.score == 2
-      p1res = 'Forty' if @player1.score == 3
-      p2res = 'Love'
-      result = p1res + '-' + p2res
+      puts @player1.score.to_s + @player2.score.to_s
+      return SCORE_MAP[@player1.score] + '-' + SCORE_MAP[@player2.score]
     end
     if (@player2.score > 0) && (@player1.score == 0)
       p2res = 'Fifteen' if @player2.score == 1

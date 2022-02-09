@@ -54,95 +54,71 @@ class TennisGame2
   def initialize(player1Name, player2Name)
     @player1 = Player.new(player1Name)
     @player2 = Player.new(player2Name)
-    @player1Name = @player1.name
-    @player2Name = @player2.name
-    @p1points = 0
-    @p2points = 0
   end
 
   def won_point(playerName)
-    if playerName == @player1Name
-      p1Score
+    if playerName == @player1.name
+      @player1.award_point
     else
-      p2Score
+      @player2.award_point
     end
   end
 
   def score
     result = ''
-    if (@p1points == @p2points) && (@p1points < 3)
-      result = 'Love' if @p1points == 0
-      result = 'Fifteen' if @p1points == 1
-      result = 'Thirty' if @p1points == 2
+    if (@player1.score == @player2.score) && (@player1.score < 3)
+      result = 'Love' if @player1.score == 0
+      result = 'Fifteen' if @player1.score == 1
+      result = 'Thirty' if @player1.score == 2
       result += '-All'
     end
-    result = 'Deuce' if (@p1points == @p2points) && (@p1points > 2)
+    result = 'Deuce' if (@player1.score == @player2.score) && (@player1.score > 2)
 
     p1res = ''
     p2res = ''
-    if (@p1points > 0) && (@p2points == 0)
-      p1res = 'Fifteen' if @p1points == 1
-      p1res = 'Thirty' if @p1points == 2
-      p1res = 'Forty' if @p1points == 3
+    if (@player1.score > 0) && (@player2.score == 0)
+      p1res = 'Fifteen' if @player1.score == 1
+      p1res = 'Thirty' if @player1.score == 2
+      p1res = 'Forty' if @player1.score == 3
       p2res = 'Love'
       result = p1res + '-' + p2res
     end
-    if (@p2points > 0) && (@p1points == 0)
-      p2res = 'Fifteen' if @p2points == 1
-      p2res = 'Thirty' if @p2points == 2
-      p2res = 'Forty' if @p2points == 3
+    if (@player2.score > 0) && (@player1.score == 0)
+      p2res = 'Fifteen' if @player2.score == 1
+      p2res = 'Thirty' if @player2.score == 2
+      p2res = 'Forty' if @player2.score == 3
 
       p1res = 'Love'
       result = p1res + '-' + p2res
     end
 
-    if (@p1points > @p2points) && (@p1points < 4)
-      p1res = 'Thirty' if @p1points == 2
-      p1res = 'Forty' if @p1points == 3
-      p2res = 'Fifteen' if @p2points == 1
-      p2res = 'Thirty' if @p2points == 2
+    if (@player1.score > @player2.score) && (@player1.score < 4)
+      p1res = 'Thirty' if @player1.score == 2
+      p1res = 'Forty' if @player1.score == 3
+      p2res = 'Fifteen' if @player2.score == 1
+      p2res = 'Thirty' if @player2.score == 2
       result = p1res + '-' + p2res
     end
-    if (@p2points > @p1points) && (@p2points < 4)
-      p2res = 'Thirty' if @p2points == 2
-      p2res = 'Forty' if @p2points == 3
-      p1res = 'Fifteen' if @p1points == 1
-      p1res = 'Thirty' if @p1points == 2
+    if (@player2.score > @player1.score) && (@player2.score < 4)
+      p2res = 'Thirty' if @player2.score == 2
+      p2res = 'Forty' if @player2.score == 3
+      p1res = 'Fifteen' if @player1.score == 1
+      p1res = 'Thirty' if @player1.score == 2
       result = p1res + '-' + p2res
     end
-    if (@p1points > @p2points) && (@p2points >= 3)
-      result = 'Advantage ' + @player1Name
+    if (@player1.score > @player2.score) && (@player2.score >= 3)
+      result = 'Advantage ' + @player1.name
     end
-    if (@p2points > @p1points) && (@p1points >= 3)
-      result = 'Advantage ' + @player2Name
+    if (@player2.score > @player1.score) && (@player1.score >= 3)
+      result = 'Advantage ' + @player2.name
     end
-    if (@p1points >= 4) && (@p2points >= 0) && ((@p1points - @p2points) >= 2)
-      result = 'Win for ' + @player1Name
+    if (@player1.score >= 4) && (@player2.score >= 0) && ((@player1.score - @player2.score) >= 2)
+      result = 'Win for ' + @player1.name
     end
-    if (@p2points >= 4) && (@p1points >= 0) && ((@p2points - @p1points) >= 2)
-      result = 'Win for ' + @player2Name
+    if (@player2.score >= 4) && (@player1.score >= 0) && ((@player2.score - @player1.score) >= 2)
+      result = 'Win for ' + @player2.name
     end
     result
-  end
-
-  def setp1Score(number)
-    (0..number).each do |_i|
-      p1Score
-    end
-  end
-
-  def setp2Score(number)
-    (0..number).each do |_i|
-      p2Score
-    end
-  end
-
-  def p1Score
-    @p1points += 1
-  end
-
-  def p2Score
-    @p2points += 1
   end
 end
 

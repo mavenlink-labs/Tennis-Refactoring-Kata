@@ -56,20 +56,21 @@ class TennisGame2
     @player2 = Player.new(player2Name)
   end
 
-  def won_point(playerName)
-    if playerName == @player1.name
-      @player1.award_point
-    else
-      @player2.award_point
-    end
+  def won_point(player_name)
+    victor = [@player1, @player2].detect { |p| p.name == player_name }
+    victor.award_point
+  end
+
+  def score_tied
+    return 'Love' if @player1.score == 0
+    return 'Fifteen' if @player1.score == 1
+    return 'Thirty' if @player1.score == 2
   end
 
   def score
     result = ''
     if (@player1.score == @player2.score) && (@player1.score < 3)
-      result = 'Love' if @player1.score == 0
-      result = 'Fifteen' if @player1.score == 1
-      result = 'Thirty' if @player1.score == 2
+      result = score_tied
       result += '-All'
     end
     result = 'Deuce' if (@player1.score == @player2.score) && (@player1.score > 2)

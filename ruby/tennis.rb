@@ -62,18 +62,20 @@ class TennisGame2
   end
 
   def score_tied
-    return 'Love' if @player1.score == 0
-    return 'Fifteen' if @player1.score == 1
-    return 'Thirty' if @player1.score == 2
+    if(@player1.score < 3)
+      result = 'Love' if @player1.score == 0
+      result =  'Fifteen' if @player1.score == 1
+      result = 'Thirty' if @player1.score == 2
+      return result += '-All'
+    end
+    return 'Deuce'
   end
 
   def score
     result = ''
-    if (@player1.score == @player2.score) && (@player1.score < 3)
+    if (@player1.score == @player2.score)
       result = score_tied
-      result += '-All'
     end
-    result = 'Deuce' if (@player1.score == @player2.score) && (@player1.score > 2)
 
     p1res = ''
     p2res = ''

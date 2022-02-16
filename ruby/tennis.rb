@@ -20,10 +20,7 @@ class TennisGame1
   end
 
   def tied_score_result
-    {
-      0 => 'Love-All',
-      1 => 'Fifteen-All',
-      2 => 'Thirty-All'
+    { 0 => 'Love-All', 1 => 'Fifteen-All', 2 => 'Thirty-All'
     }.fetch(@player1.score, 'Deuce')
   end
 
@@ -39,11 +36,7 @@ class TennisGame1
   end
 
   def basic_score_result
-    map = {
-      0 => 'Love',
-      1 => 'Fifteen',
-      2 => 'Thirty',
-      3 => 'Forty'
+    map = { 0 => 'Love', 1 => 'Fifteen', 2 => 'Thirty', 3 => 'Forty'
     }
 
     "#{map[@player1.score]}-#{map[@player2.score]}"
@@ -56,11 +49,7 @@ class TennisGame2
     @player2 = Player.new(player2Name)
   end
 
-  SCORE_MAP = {
-    0 => 'Love',
-    1 => 'Fifteen',
-    2 => 'Thirty',
-    3 => 'Forty'
+  SCORE_MAP = { 0 => 'Love', 1 => 'Fifteen', 2 => 'Thirty', 3 => 'Forty'
   }
 
   def won_point(player_name)
@@ -69,10 +58,18 @@ class TennisGame2
   end
 
   def score_tied
-    if(@player1.score < 3)
+    if (@player1.score < 3)
       return SCORE_MAP[@player1.score] + '-All'
     end
     return 'Deuce'
+  end
+
+  def player1_wins
+    (@player1.score >= 4) && (@player2.score >= 0) && ((@player1.score - @player2.score) >= 2)
+  end
+
+  def player2_wins
+    (@player2.score >= 4) && (@player1.score >= 0) && ((@player2.score - @player1.score) >= 2)
   end
 
   def score
@@ -81,10 +78,10 @@ class TennisGame2
       return score_tied
     end
 
-    if (@player1.score >= 4) && (@player2.score >= 0) && ((@player1.score - @player2.score) >= 2)
+    if player1_wins
       return 'Win for ' + @player1.name
     end
-    if (@player2.score >= 4) && (@player1.score >= 0) && ((@player2.score - @player1.score) >= 2)
+    if player2_wins
       return 'Win for ' + @player2.name
     end
 
@@ -124,8 +121,7 @@ class TennisGame3
   def won_point(n)
     if n == @p1N
       @p1 += 1
-    else
-      @p2 += 1
+    else @p2 += 1
     end
   end
 
@@ -134,13 +130,11 @@ class TennisGame3
       p = %w[Love Fifteen Thirty Forty]
       s = p[@p1]
       @p1 == @p2 ? s + '-All' : s + '-' + p[@p2]
-    else
-      if @p1 == @p2
-        'Deuce'
-      else
-        s = @p1 > @p2 ? @p1N : @p2N
-        (@p1 - @p2) * (@p1 - @p2) == 1 ? 'Advantage ' + s : 'Win for ' + s
-      end
+    else if @p1 == @p2
+      'Deuce'
+    else s = @p1 > @p2 ? @p1N : @p2N
+    (@p1 - @p2) * (@p1 - @p2) == 1 ? 'Advantage ' + s : 'Win for ' + s
+    end
     end
   end
 end

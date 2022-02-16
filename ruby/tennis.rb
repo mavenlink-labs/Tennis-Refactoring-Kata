@@ -70,6 +70,11 @@ class TennisGame2
     return @player2 if (@player2.score >= 4) && (@player1.score >= 0) && ((@player2.score - @player1.score) >= 2)
   end
 
+  def player_advantage
+    return @player1 if (@player1.score > @player2.score) && (@player2.score >= 3)
+    return @player2 if (@player2.score > @player1.score) && (@player1.score >= 3)
+  end
+
   def score
     return 'Win for ' + player_wins.name if player_wins
 
@@ -77,15 +82,9 @@ class TennisGame2
       return score_tied
     end
 
-    if (@player1.score > @player2.score) && (@player2.score >= 3)
-      return 'Advantage ' + @player1.name
-    end
+    return "Advantage #{player_advantage.name}" if player_advantage
 
-    if (@player2.score > @player1.score) && (@player1.score >= 3)
-      return 'Advantage ' + @player2.name
-    end
-
-    return SCORE_MAP[@player1.score] + '-' + SCORE_MAP[@player2.score]
+    SCORE_MAP[@player1.score] + '-' + SCORE_MAP[@player2.score]
   end
 end
 

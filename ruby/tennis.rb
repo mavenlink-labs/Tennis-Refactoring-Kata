@@ -64,12 +64,10 @@ class TennisGame2
     return 'Deuce'
   end
 
-  def player1_wins
-    (@player1.score >= 4) && (@player2.score >= 0) && ((@player1.score - @player2.score) >= 2)
-  end
+  def player_wins
+    return @player1 if (@player1.score >= 4) && (@player2.score >= 0) && ((@player1.score - @player2.score) >= 2)
 
-  def player2_wins
-    (@player2.score >= 4) && (@player1.score >= 0) && ((@player2.score - @player1.score) >= 2)
+    return @player2 if (@player2.score >= 4) && (@player1.score >= 0) && ((@player2.score - @player1.score) >= 2)
   end
 
   def score
@@ -78,12 +76,7 @@ class TennisGame2
       return score_tied
     end
 
-    if player1_wins
-      return 'Win for ' + @player1.name
-    end
-    if player2_wins
-      return 'Win for ' + @player2.name
-    end
+    return 'Win for ' + player_wins.name if player_wins
 
     if (@player1.score > 0) && (@player2.score == 0)
       return SCORE_MAP[@player1.score] + '-' + SCORE_MAP[@player2.score]

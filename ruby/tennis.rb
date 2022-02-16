@@ -65,7 +65,7 @@ class TennisGame2
   end
 
   def game_over(player1, player2)
-    player1.score >= 4 && player2.score >= 0 && ((player1.score - player2.score) >= 2)
+    player1.score >= 4 && ((player1.score - player2.score) >= 2)
   end
 
   def player_wins
@@ -80,11 +80,9 @@ class TennisGame2
   end
 
   def score
-    return 'Win for ' + player_wins.name if player_wins
+    return "Win for #{player_wins.name}" if player_wins
 
-    if (@player1.score == @player2.score)
-      return score_tied
-    end
+    return score_tied if (@player1.score == @player2.score)
 
     return "Advantage #{player_advantage.name}" if player_advantage
 

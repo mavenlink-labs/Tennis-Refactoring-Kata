@@ -88,8 +88,6 @@ class TennisGame2
       return 'Win for ' + @player2.name
     end
 
-    p1res = ''
-    p2res = ''
     if (@player1.score > 0) && (@player2.score == 0)
       return SCORE_MAP[@player1.score] + '-' + SCORE_MAP[@player2.score]
     end

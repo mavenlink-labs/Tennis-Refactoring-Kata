@@ -64,10 +64,14 @@ class TennisGame2
     return 'Deuce'
   end
 
-  def player_wins
-    return @player1 if (@player1.score >= 4) && (@player2.score >= 0) && ((@player1.score - @player2.score) >= 2)
+  def game_over(player1, player2)
+    player1.score >= 4 && player2.score >= 0 && ((player1.score - player2.score) >= 2)
+  end
 
-    return @player2 if (@player2.score >= 4) && (@player1.score >= 0) && ((@player2.score - @player1.score) >= 2)
+  def player_wins
+    return @player1 if game_over(@player1, @player2)
+
+    return @player2 if game_over(@player2, @player1)
   end
 
   def player_advantage

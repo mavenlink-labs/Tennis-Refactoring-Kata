@@ -85,12 +85,14 @@ class TennisGame2
     def initialize(player1, player2)
       @player1 = player1
       @player2 = player2
+      @score1 = player1.score
+      @score2 = player2.score
     end
 
     SCORE_MAP = { 0 => 'Love', 1 => 'Fifteen', 2 => 'Thirty', 3 => 'Forty' }
 
     def score
-      "#{SCORE_MAP[@player1.score]}-#{SCORE_MAP[@player2.score]}"
+      "#{SCORE_MAP[@score1]}-#{SCORE_MAP[@score2]}"
     end
 
     def winner

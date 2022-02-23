@@ -72,11 +72,11 @@ class TennisGame2
   def score
     score = BasicScore.new(@player1, @player2)
 
-    return "Win for #{score.winner.name}" if score.winner
+    return "Win for #{score.advantaged_player.name}" if score.game_over
 
     return score_tied if (@player1.score == @player2.score)
 
-    return "Advantage #{player_advantage.name}" if player_advantage
+    return "Advantage #{score.advantaged_player.name}" if player_advantage
 
     BasicScore.new(@player1, @player2).score
   end
@@ -95,14 +95,8 @@ class TennisGame2
       "#{SCORE_MAP[@score1]}-#{SCORE_MAP[@score2]}"
     end
 
-    def winner
-      return unless game_over
-
-      if (@player1.score > @player2.score)
-        return @player1
-      end
-
-      @player2
+    def advantaged_player
+      [@player1, @player2].max_by { |player| player.score }
     end
 
     def game_over

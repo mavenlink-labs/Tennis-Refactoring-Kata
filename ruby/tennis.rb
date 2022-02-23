@@ -96,12 +96,13 @@ class TennisGame2
     end
 
     def winner
-      if(game_over)
-        if(@player1.score > @player2.score)
-          return @player1
-        end
-        return @player2
+      return unless game_over
+
+      if (@player1.score > @player2.score)
+        return @player1
       end
+
+      @player2
     end
 
     def game_over

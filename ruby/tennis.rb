@@ -86,7 +86,20 @@ class TennisGame2
 
     return "Advantage #{player_advantage.name}" if player_advantage
 
-    SCORE_MAP[@player1.score] + '-' + SCORE_MAP[@player2.score]
+    BasicScore.new(@player1, @player2).score
+  end
+
+  class BasicScore
+    def initialize(player1, player2)
+      @player1 = player1
+      @player2 = player2
+    end
+
+    SCORE_MAP = { 0 => 'Love', 1 => 'Fifteen', 2 => 'Thirty', 3 => 'Forty' }
+
+    def score
+      "#{SCORE_MAP[@player1.score]}-#{SCORE_MAP[@player2.score]}"
+    end
   end
 end
 

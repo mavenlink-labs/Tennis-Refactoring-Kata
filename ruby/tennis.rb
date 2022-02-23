@@ -58,19 +58,16 @@ class TennisGame2
   end
 
   def score_tied
-    if (@player1.score < 3)
-      return SCORE_MAP[@player1.score] + '-All'
-    end
-    return 'Deuce'
+    return 'Deuce' unless @player1.score < 3
+    SCORE_MAP[@player1.score] + '-All'
   end
 
   def player_advantage
-    return @player1 if (@player1.score > @player2.score) && (@player2.score >= 3)
-    return @player2 if (@player2.score > @player1.score) && (@player1.score >= 3)
+    @player1.score >= 3 && @player2.score >= 3
   end
 
   def score
-    score = BasicScore.new(@player1, @player2)
+    score = ScoreBoard.new(@player1, @player2)
 
     return "Win for #{score.advantaged_player.name}" if score.game_over
 
@@ -78,10 +75,10 @@ class TennisGame2
 
     return "Advantage #{score.advantaged_player.name}" if player_advantage
 
-    BasicScore.new(@player1, @player2).score
+    score.score
   end
 
-  class BasicScore
+  class ScoreBoard
     def initialize(player1, player2)
       @player1 = player1
       @player2 = player2

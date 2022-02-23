@@ -64,23 +64,15 @@ class TennisGame2
     return 'Deuce'
   end
 
-  def game_over(player1, player2)
-    player1.score >= 4 && ((player1.score - player2.score) >= 2)
-  end
-
-  def player_wins
-    return @player1 if game_over(@player1, @player2)
-
-    return @player2 if game_over(@player2, @player1)
-  end
-
   def player_advantage
     return @player1 if (@player1.score > @player2.score) && (@player2.score >= 3)
     return @player2 if (@player2.score > @player1.score) && (@player1.score >= 3)
   end
 
   def score
-    return "Win for #{player_wins.name}" if player_wins
+    score = BasicScore.new(@player1, @player2)
+
+    return "Win for #{score.winner.name}" if score.winner
 
     return score_tied if (@player1.score == @player2.score)
 
@@ -99,6 +91,16 @@ class TennisGame2
 
     def score
       "#{SCORE_MAP[@player1.score]}-#{SCORE_MAP[@player2.score]}"
+    end
+
+    def winner
+      return @player1 if game_over(@player1, @player2)
+
+      return @player2 if game_over(@player2, @player1)
+    end
+
+    def game_over(player1, player2)
+      player1.score >= 4 && ((player1.score - player2.score) >= 2)
     end
   end
 end
